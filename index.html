@@ -133,8 +133,8 @@
         return;
       }
 
-      if ((currency === "BDT" && amount < 50000) || (currency === "USD" && amount < 500)) {
-        errorMsg.textContent = `Minimum bid for ${currency} is ${currency === 'BDT' ? '50,000৳' : '$500'}.`;
+      if ((currency === "BDT" && amount < 20000) || (currency === "USD" && amount < 200)) {
+        errorMsg.textContent = `You Have to increase the bid amount`;
         return;
       }
 
