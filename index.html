@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ononno.com - Domain for Sale</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      max-width: 420px;
+      width: 100%;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #111827;
+      text-align: center;
+    }
+    label {
+      font-weight: 600;
+      margin-bottom: 5px;
+      display: block;
+      color: #374151;
+    }
+    input, select {
+      font-size: 14px;
+    }
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 15px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+    }
+
+    /* Amount + Currency combo */
+    .amount-currency-wrapper {
+      position: relative;
+      margin-bottom: 15px;
+    }
+    .amount-currency-wrapper input {
+      width: 100%;
+      padding: 10px 70px 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+    }
+    .amount-currency-wrapper select {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      border: none;
+      background: transparent;
+      padding: 0 14px 0 10px;
+      border-left: 1px solid #e5e7eb;
+      font-weight: bold;
+      appearance: none;
+      cursor: pointer;
+      background-color: #fff;
+    }
+
+    button {
+      background-color: #10b981;
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Place Your Bid for ononno.com</h2>
+    <form id="bidForm">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" placeholder="Enter your name" required>
+
+      <label for="email">Your Email</label>
+      <input type="email" id="email" placeholder="Enter your email" required>
+
+      <label for="amount">Bid Amount</label>
+      <div class="amount-currency-wrapper">
+        <input type="number" id="amount" placeholder="Enter amount" required>
+        <select id="currency">
+          <option value="USD" selected>$ USD</option>
+          <option value="BDT">৳ BDT</option>
+        </select>
+      </div>
+
+      <div class="error" id="errorMsg"></div>
+      <button type="submit">Submit Bid</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('bidForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const amount = parseFloat(document.getElementById('amount').value);
+      const currency = document.getElementById('currency').value;
+      const errorMsg = document.getElementById('errorMsg');
+
+      if (!currency || isNaN(amount)) {
+        errorMsg.textContent = "Please complete all fields correctly.";
+        return;
+      }
+
+      if ((currency === "BDT" && amount < 50000) || (currency === "USD" && amount < 500)) {
+        errorMsg.textContent = `Minimum bid for ${currency} is ${currency === 'BDT' ? '50,000৳' : '$500'}.`;
+        return;
+      }
+
+      errorMsg.textContent = "";
+
+      const message = `I want to buy ononno.com domain\n\n👤 Name: ${name}\n📧 Email: ${email}\n💰 Bid: ${amount} ${currency}`;
+      const phone = "8801922186800"; // Replace with your WhatsApp number
+      const encodedMsg = encodeURIComponent(message);
+      const whatsappURL = `https://wa.me/${phone}?text=${encodedMsg}`;
+
+      window.open(whatsappURL, "_blank");
+    });
+  </script>
+
+</body>
+</html>
